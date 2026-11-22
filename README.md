@@ -14,6 +14,13 @@ python app.py                   # web app at http://127.0.0.1:5000
 python -m pytest                # tests
 ```
 
+## Deployment
+
+The Flask web app can be deployed to Render using the included `render.yaml`.
+Create a new Blueprint from this repository in Render; it installs the requirements
+and starts the app with Gunicorn. The free instance may take a short time to wake up
+after inactivity.
+
 ### Using MySQL instead of SQLite
 SQLite (`data/chicago_crime.db`) is used by default, as allowed by the brief. To use MySQL,
 set a connection URL (the database is created automatically). It uses MySQL Connector/Python:
