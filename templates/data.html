@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Crime Data Explorer</h2>
+  <form class="inline" method="get">
+    <label>Crime type<select name="primary_type"><option value="">All</option>
+      {% for t in types %}<option {{ 'selected' if f.primary_type == t }}>{{ t }}</option>{% endfor %}</select></label>
+    <label>Community area<select name="community"><option value="">All</option>
+      {% for c in communities %}<option {{ 'selected' if f.community == c }}>{{ c }}</option>{% endfor %}</select></label>
+    <label>Arrest<select name="arrest"><option value="">All</option>
+      <option value="1" {{ 'selected' if f.arrest == '1' }}>Yes</option><option value="0" {{ 'selected' if f.arrest == '0' }}>No</option></select></label>
+    <label>Search (block / case / description)<input name="q" value="{{ f.q }}"></label>
+    <button class="btn">Filter</button>
+    <a class="btn secondary" href="{{ url_for('data_explorer') }}">Reset</a>
+  </form>
+  <p>{{ count }} matching records{% if count > 200 %} (showing latest 200){% endif %}</p>
+  <div class="scroll">{{ table|safe }}</div>
+</div>
+{% endblock %}

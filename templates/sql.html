@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>SQL Queries (executed against the {{ r.backend }} warehouse)</h2>
+  <div class="grid2">
+  {% for name, sql, table in sections %}
+    <div><h3 style="font-size:15px">{{ name }}</h3><pre>{{ sql }}</pre>{{ table|safe }}</div>
+  {% endfor %}
+  </div>
+</div>
+<div class="card">
+  <h2>Database Views read into Pandas</h2>
+  <div class="grid2">
+  {% for name, table in views %}<div><h3 style="font-size:15px">SELECT * FROM {{ name }}</h3><div class="scroll">{{ table|safe }}</div></div>{% endfor %}
+  </div>
+</div>
+<div class="grid2">
+  <div class="card"><img class="chart" src="{{ url_for('chart', name='uc4_vw_crime_yearly') }}?t={{ r.generated_at }}"></div>
+  <div class="card"><img class="chart" src="{{ url_for('chart', name='uc4_vw_crime_by_category') }}?t={{ r.generated_at }}"></div>
+</div>
+<div class="card">
+  <h2>Summary Tables (loaded via DB-API connector)</h2>
+  <div class="grid2">
+  {% for name, table in summaries %}<div><h3 style="font-size:15px">{{ name }}</h3><div class="scroll" style="max-height:380px">{{ table|safe }}</div></div>{% endfor %}
+  </div>
+</div>
+{% endblock %}

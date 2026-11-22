@@ -1,0 +1,23 @@
+district_code,district_name,crime_count,arrest_count,domestic_count
+1,Central,27,4,0
+2,Wentworth,27,6,5
+3,Grand Crossing,28,12,4
+4,South Chicago,26,4,3
+5,Calumet,19,4,2
+6,Gresham,30,11,3
+7,Englewood,30,5,9
+8,Chicago Lawn,30,6,1
+9,Deering,24,3,6
+10,Ogden,26,8,5
+11,Harrison,40,17,6
+12,Near West,17,4,2
+14,Shakespeare,10,0,1
+15,Austin,22,8,2
+16,Jefferson Park,21,1,4
+17,Albany Park,16,2,4
+18,Near North,23,5,3
+19,Town Hall,21,5,2
+20,Lincoln,7,3,1
+22,Morgan Park,13,2,1
+24,Rogers Park,15,4,1
+25,Grand Central,26,10,3

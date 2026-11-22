@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}CPD Crime Analytics{% endblock %}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Segoe UI, Arial, sans-serif; margin: 0; background: #f2f4f8; color: #1d2433; }
+  nav { background: #0b2545; display: flex; align-items: center; padding: 0 28px; gap: 4px; }
+  nav .brand { color: #fff; font-weight: 700; font-size: 18px; margin-right: 24px; padding: 14px 0; }
+  nav a { color: #cfd8e6; text-decoration: none; padding: 16px 14px; font-size: 14px; }
+  nav a.active, nav a:hover { color: #fff; background: #13315c; }
+  nav .meta { margin-left: auto; color: #8da9c4; font-size: 12px; }
+  main { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
+  .card { background: #fff; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  h2 { margin-top: 0; color: #0b2545; font-size: 18px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .kpi { background: #fff; border-radius: 8px; padding: 14px 18px; border-left: 4px solid #e63946; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .kpi .label { font-size: 12px; color: #5c677d; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(520px, 100%), 1fr)); gap: 20px; }
+  .grid2 > * { min-width: 0; }
+  img.chart { width: 100%; border: 1px solid #e3e7ef; border-radius: 6px; }
+  .table { border-collapse: collapse; font-size: 13px; width: 100%; }
+  .table th { background: #13315c; color: #fff; padding: 7px 10px; text-align: left; position: sticky; top: 0; }
+  .table td { border-bottom: 1px solid #e3e7ef; padding: 6px 10px; vertical-align: top; }
+  .scroll { overflow: auto; max-height: 560px; }
+  .flash { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; }
+  .flash.success { background: #d8f3dc; color: #1b4332; }
+  .flash.error { background: #ffe5e5; color: #9d0208; }
+  .badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; color: #fff; }
+  .HIGH { background: #d62828; } .MEDIUM { background: #f77f00; } .LOW { background: #4361ee; }
+  .btn { background: #e63946; color: #fff; border: 0; padding: 8px 16px; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 14px; display: inline-block; }
+  .btn.secondary { background: #13315c; }
+  form.inline { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+  label { font-size: 12px; color: #5c677d; display: flex; flex-direction: column; gap: 4px; }
+  input, select { padding: 7px 8px; border: 1px solid #c9d2e0; border-radius: 5px; font-size: 14px; max-width: 100%; }
+  label { max-width: 100%; }
+  pre { white-space: pre-wrap; }
+  nav { flex-wrap: wrap; }
+  pre { background: #0b2545; color: #e0e6f0; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+  dl dt { font-weight: 600; margin-top: 10px; } dl dd { margin: 3px 0 0 16px; color: #33415c; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">CPD Crime Analytics</span>
+  {% set ep = request.endpoint %}
+  <a href="{{ url_for('dashboard') }}" class="{{ 'active' if ep == 'dashboard' }}">Dashboard</a>
+  <a href="{{ url_for('sql_reports') }}" class="{{ 'active' if ep == 'sql_reports' }}">Warehouse Reports</a>
+  <a href="{{ url_for('data_explorer') }}" class="{{ 'active' if ep == 'data_explorer' }}">Data Explorer</a>
+  <a href="{{ url_for('ingest_page') }}" class="{{ 'active' if ep == 'ingest_page' }}">Ingest Data</a>
+  <span class="meta">{{ r.backend|upper }} warehouse &middot; refreshed {{ r.generated_at }}</span>
+</nav>
+<main>
+  {% for cat, msg in get_flashed_messages(with_categories=true) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

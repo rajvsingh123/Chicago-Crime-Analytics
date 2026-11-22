@@ -1,0 +1,78 @@
+community_code,crime_count,community_name,is_outlier
+1,6,Rogers Park,False
+2,6,West Ridge,False
+3,5,Uptown,False
+4,2,Lincoln Square,False
+5,0,North Center,False
+6,14,Lake View,False
+7,6,Lincoln Park,False
+8,20,Near North Side,True
+9,2,Edison Park,False
+10,5,Norwood Park,False
+11,2,Jefferson Park,False
+12,0,Forest Glen,False
+13,2,North Park,False
+14,6,Albany Park,False
+15,6,Portage Park,False
+16,6,Irving Park,False
+17,4,Dunning,False
+18,1,Montclare,False
+19,9,Belmont Cragin,False
+20,0,Hermosa,False
+21,3,Avondale,False
+22,3,Logan Square,False
+23,20,Humboldt Park,True
+24,9,West Town,False
+25,34,Austin,True
+26,12,West Garfield Park,False
+27,12,East Garfield Park,False
+28,9,Near West Side,False
+29,13,North Lawndale,False
+30,16,South Lawndale,False
+31,4,Lower West Side,False
+32,15,Loop,False
+33,7,Near South Side,False
+34,2,Armour Square,False
+35,7,Douglas,False
+36,2,Oakland,False
+37,3,Fuller Park,False
+38,5,Grand Boulevard,False
+39,3,Kenwood,False
+40,5,Washington Park,False
+41,7,Hyde Park,False
+42,11,Woodlawn,False
+43,16,South Shore,False
+44,11,Chatham,False
+45,7,Avalon Park,False
+46,8,South Chicago,False
+47,1,Burnside,False
+48,1,Calumet Heights,False
+49,14,Roseland,False
+50,2,Pullman,False
+51,3,South Deering,False
+52,2,East Side,False
+53,5,West Pullman,False
+54,3,Riverdale,False
+55,0,Hegewisch,False
+56,3,Garfield Ridge,False
+57,1,Archer Heights,False
+58,7,Brighton Park,False
+59,3,McKinley Park,False
+60,4,Bridgeport,False
+61,7,New City,False
+62,2,West Elsdon,False
+63,4,Gage Park,False
+64,0,Clearing,False
+65,5,West Lawn,False
+66,13,Chicago Lawn,False
+67,13,West Englewood,False
+68,16,Englewood,False
+69,9,Greater Grand Crossing,False
+70,1,Ashburn,False
+71,14,Auburn Gresham,False
+72,0,Beverly,False
+73,7,Washington Heights,False
+74,0,Mount Greenwood,False
+75,3,Morgan Park,False
+76,2,O'Hare,False
+77,7,Edgewater,False

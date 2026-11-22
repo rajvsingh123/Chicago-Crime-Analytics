@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="kpis">
+  {% for k, v in kpis.items() %}<div class="kpi"><div class="label">{{ k }}</div><div class="value">{{ v }}</div></div>{% endfor %}
+</div>
+
+<div class="card">
+  <h2>Patrol Recommendations (as of {{ r.rec.as_of.date() }})</h2>
+  <div class="scroll">
+  <table class="table">
+    <tr><th>Priority</th><th>Community area</th><th>Risk score</th><th>Crimes</th><th>Last 7 days</th><th>Arrest %</th><th>Top crime</th><th>Peak day</th><th>Perimeter (km)</th><th>Recommendation</th></tr>
+    {% for a in rec %}
+    <tr><td><span class="badge {{ a.priority }}">{{ a.priority }}</span></td><td>{{ a.community_name }}</td><td>{{ a.risk_score }}</td>
+        <td>{{ a.crime_count }}</td><td>{{ a.recent_7d }}</td><td>{{ a.arrest_rate_pct }}</td><td>{{ a.top_crime }}</td>
+        <td>{{ a.peak_day }}</td><td>{{ a.patrol_radius_km }}</td><td>{{ a.recommendation }}</td></tr>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+
+<div class="card" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+  <strong style="margin-right:8px">Export:</strong>
+  <a class="btn" href="{{ url_for('download', kind='html') }}">HTML report</a>
+  <a class="btn" href="{{ url_for('download', kind='excel') }}">Excel workbook</a>
+  <a class="btn secondary" href="{{ url_for('download', kind='crimes') }}">Cleaned crimes CSV</a>
+  <a class="btn secondary" href="{{ url_for('api_summary') }}">JSON summary API</a>
+  <form method="post" action="{{ url_for('rebuild') }}" style="margin-left:auto"
+        onsubmit="return confirm('Rebuild the warehouse from the master CSV files? Incrementally ingested records will be replaced.')">
+    <button class="btn secondary">Rebuild warehouse</button>
+  </form>
+</div>
+
+{% if insights %}
+<div class="card">
+  <h2>Key Findings</h2>
+  <div class="grid2">
+  {% for title, qa in insights.items() %}
+    <div><h3 style="font-size:15px">{{ title }}</h3><dl>{% for q, a in qa %}<dt>{{ q }}</dt><dd>{{ a }}</dd>{% endfor %}</dl></div>
+  {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="grid2">
+  {% for c in charts %}
+  <div class="card"><img class="chart" src="{{ url_for('chart', name=c) }}?t={{ r.generated_at }}" alt="{{ c }}"></div>
+  {% endfor %}
+</div>
+{% endblock %}

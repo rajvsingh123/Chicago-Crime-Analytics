@@ -1,0 +1,8 @@
+check,count,note
+Unparseable date values,0,Checked against known CPD date formats
+Dates carrying a time component,0,Dates are day-level only; Hour defaults to 0 and hourly analysis is limited
+'year' column disagrees with date,0,
+Updated before the incident date,0,
+Reporting-lag outliers (IQR on date_of_update - date),59,"Incidents from [2012, 2013, 2014, 2015, 2016] reported/updated in [2016]; lag > 7 days"
+Coordinates outside Chicago bounds,0,
+Records without coordinates,29,Kept with NULL coordinates (excluded only from geo analysis)

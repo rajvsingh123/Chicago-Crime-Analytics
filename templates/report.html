@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chicago Crime Data Analytics Report</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; margin: 0; color: #1d2433; background: #f5f7fb; }
+  header { background: #0b2545; color: #fff; padding: 24px 40px; }
+  header p { margin: 4px 0 0; opacity: .8; }
+  main { padding: 24px 40px; max-width: 1300px; }
+  section { background: #fff; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  h2 { color: #0b2545; border-bottom: 2px solid #e63946; padding-bottom: 6px; }
+  img { max-width: 100%; border: 1px solid #e3e7ef; border-radius: 6px; margin: 8px 0; }
+  .table { border-collapse: collapse; font-size: 13px; margin: 8px 0 16px; }
+  .table th { background: #13315c; color: #fff; padding: 6px 10px; text-align: left; }
+  .table td { border-bottom: 1px solid #e3e7ef; padding: 5px 10px; }
+  .scroll { overflow-x: auto; }
+  dl dt { font-weight: 600; margin-top: 10px; }
+  dl dd { margin: 4px 0 0 16px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Chicago Police Department - Crime Data Analytics</h1>
+  <p>Generated {{ r.generated_at }} &middot; Warehouse backend: {{ r.backend }} &middot; {{ r.df|length }} crime records</p>
+</header>
+<main>
+<section>
+  <h2>Key Findings</h2>
+  {% for title, qa in insights.items() %}
+    <h3>{{ title }}</h3>
+    <dl>{% for q, a in qa %}<dt>{{ q }}</dt><dd>{{ a }}</dd>{% endfor %}</dl>
+  {% endfor %}
+</section>
+
+{% if uc1 %}
+<section>
+  <h2>Use Case 1 - Load &amp; Clean</h2>
+  <p>{{ uc1.profile.rows }} rows, {{ uc1.profile.columns }} columns. Cleaned rows loaded: {{ uc1.log.rows_clean }};
+     quarantined: {{ uc1.log.quarantined }}; repaired lines: {{ uc1.log.repaired_lines }}.</p>
+  <h3>First 10 rows</h3><div class="scroll">{{ head10|safe }}</div>
+  <h3>Anomaly checks</h3>{{ tables.anomalies|safe }}
+</section>
+{% endif %}
+
+<section>
+  <h2>Use Case 2 - Exploratory Analysis</h2>
+  <div class="grid">
+    <img src="{{ charts.uc2_crimes_per_year }}" alt="Crimes per year">
+    <img src="{{ charts.uc2_top10_categories }}" alt="Top 10 categories">
+  </div>
+  {{ tables.top10|safe }}
+  <img src="{{ charts.uc2_arrests }}" alt="Arrests">
+  {{ tables.arrest_by_year|safe }}
+  <div class="grid">
+    <img src="{{ charts.uc2_month_day_heatmap }}" alt="Month vs day heatmap">
+    <img src="{{ charts.uc2_top10_community_areas }}" alt="Top community areas">
+  </div>
+  {{ tables.top_areas|safe }}
+</section>
+
+<section>
+  <h2>Use Case 3 - Statistical Insights</h2>
+  <img src="{{ charts.uc3_crimes_by_hour }}" alt="Crimes by hour">
+  <img src="{{ charts.uc3_community_outliers }}" alt="Community outliers">
+  <h3>IQR outliers</h3>{{ tables.outliers|safe }}
+  <img src="{{ charts.uc3_correlation_heatmap }}" alt="Correlation heatmap" style="max-width:700px">
+</section>
+
+<section>
+  <h2>Use Case 4 - Warehouse Reporting</h2>
+  <div class="grid">
+    <div><h3>Crime count per year</h3>{{ tables.crime_count_per_year|safe }}</div>
+    <div><h3>Arrest count per year</h3>{{ tables.arrest_count_per_year|safe }}</div>
+  </div>
+  <h3>Top 5 crime types</h3>{{ tables.top5_crime_types|safe }}
+  <h3>vw_crime_yearly</h3>{{ tables.vw_crime_yearly|safe }}
+  <img src="{{ charts.uc4_vw_crime_yearly }}" alt="vw_crime_yearly">
+  <img src="{{ charts.uc4_vw_crime_by_category }}" alt="vw_crime_by_category">
+  <img src="{{ charts.uc4_summary_district }}" alt="summary_district">
+</section>
+
+<section>
+  <h2>Patrol Recommendations</h2>
+  <p>Risk score = severity (index crime x2, violent x1.5) x recency decay (half-life 30 days), as of {{ r.rec.as_of.date() }}.</p>
+  <div class="scroll">{{ tables.rec|safe }}</div>
+  <img src="{{ charts.rec_hotspot_map }}" alt="Hotspot map" style="max-width:600px">
+</section>
+</main>
+</body>
+</html>
